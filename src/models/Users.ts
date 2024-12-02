@@ -11,7 +11,7 @@ export enum UserStatut {
     EMAIL_NOT_VERIFIED,
 }
 
-export interface Users extends Document {
+export interface IUsers extends Document {
     nickname: string;
     email: string;
     password: string;
@@ -21,7 +21,7 @@ export interface Users extends Document {
     lastConnection: Date;
 };
 
-const UsersSchema = new mongoose.Schema<Users>({
+const UsersSchema = new mongoose.Schema<IUsers>({
     nickname: {
         type: String,
         required: [true, "Nickname is required"],
@@ -31,7 +31,7 @@ const UsersSchema = new mongoose.Schema<Users>({
         type: String,
         required: [true, "Email is required"],
         match: [
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            /^(?=.{1,255}$)\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             "Email is invalid",
         ]
     },
@@ -58,4 +58,6 @@ const UsersSchema = new mongoose.Schema<Users>({
     lastConnection: { type: Date, required: true },
 });
 
-export default mongoose.models.Users || mongoose.model<Users>("Users", UsersSchema);
+const Users = mongoose.model<IUsers>("Users", UsersSchema);
+
+export default Users;
