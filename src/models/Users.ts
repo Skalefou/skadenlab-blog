@@ -55,9 +55,13 @@ const UsersSchema = new mongoose.Schema<IUsers>({
         type: Date,
         required: true,
         default: Date.now,},
-    lastConnection: { type: Date, required: true },
+    lastConnection: {
+        type: Date,
+        required: true,
+        default: Date.now,
+    },
 });
 
-const Users = mongoose.model<IUsers>("Users", UsersSchema);
+const Users = mongoose.model<IUsers>("Users", UsersSchema, "users");
 
 export default Users;

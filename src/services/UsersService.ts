@@ -1,7 +1,7 @@
-import Users, {IUsers} from "@/models/Users";
-import {CreateUserDTO} from "@/dto/CreateUserDTO";
-import {z} from "zod";
+import {z, ZodError} from "zod";
 import {UsersRepository} from "@/repositories/UsersRepository";
+import {CreateUsersDTO} from "@/dto/CreateUsersDTO";
+import {IUsers} from "@/models/Users";
 
 const createSchema = z.object({
     nickname: z
@@ -18,16 +18,18 @@ const createSchema = z.object({
         .max(255, { message: "Password must be at most 255 characters long" }),
 });
 
-const UsersService = {
-    async create(user: CreateUserDTO) {
-        const { nickname, email, password } = createSchema.parse(user);
-        const newUser = new Users({
-            nickname,
-            email,
-            password,
-        });
-        await UsersRepository.create(newUser);
+export const UsersService = {
+    async create(user: CreateUsersDTO): Promise<IUsers> {
+        try {
+            createSchema.parse(user);
+            const newUser = await UsersRepository.create(user);
+            return newUser;
+        } catch (error) {
+            if (error instanceof ZodError) {
+                console.error("Validation failed", error.errors);
+                return Promise.reject(error.errors);
+            }
+            return Promise.reject(error);
+        }
     }
 };
-
-export default UsersService;
