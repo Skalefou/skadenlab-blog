@@ -1,17 +1,23 @@
 'use client';
 
 import Link from "next/link";
-import React from "react";
+import React, {useState} from "react";
 import { Avatar } from "primereact/avatar";
 
 const NavBar = () => {
+    const [menu, setMenu] = useState(false);
+
+    const toggleMenu = () => {
+        setMenu(!menu);
+    }
+
     return (
-        <div className="bg-amber-500 border-b shadow-md max-h-16 p-4 text-black ">
-            <div className="flex item-center justify-center h-screen">
-            <Link href="/">Skadenlab</Link>
+        <div className="bg-amber-500 border-b shadow-md max-h-16 p-4 text-black flex flex-col">
+            <div className="flex justify-center">
+                <Link href="/">Skadenlab</Link>
             </div>
-            <div className="flex justify-between items-center w-full mt-4">
-                <div >
+            <div>
+                <div  className="flex justify-between w-1/4">
                     <Link href="/">Blog</Link>
                     <Link href="/projects">Projets</Link>
                     <Link href="/about">L'auteur</Link>
