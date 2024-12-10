@@ -1,6 +1,6 @@
-import {connectDB} from "@/lib/mongodb";
-import Users, {IUsers} from "@/models/Users";
-import {CreateUsersDTO} from "@/dto/CreateUsersDTO";
+import { connectDB } from "@/lib/mongodb";
+import Users, { IUsers } from "@/models/Users";
+import { CreateUsersDTO } from "@/dto/CreateUsersDTO";
 
 export const UsersRepository = {
     async create(user: CreateUsersDTO): Promise<IUsers> {
@@ -12,5 +12,5 @@ export const UsersRepository = {
         });
         await newUser.save();
         return newUser;
-    }
-}
+    },
+};

@@ -1,7 +1,7 @@
-import {z, ZodError} from "zod";
-import {UsersRepository} from "@/repositories/UsersRepository";
-import {CreateUsersDTO} from "@/dto/CreateUsersDTO";
-import {IUsers} from "@/models/Users";
+import { z, ZodError } from "zod";
+import { UsersRepository } from "@/repositories/UsersRepository";
+import { CreateUsersDTO } from "@/dto/CreateUsersDTO";
+import { IUsers } from "@/models/Users";
 
 const createSchema = z.object({
     nickname: z
@@ -11,7 +11,10 @@ const createSchema = z.object({
     email: z
         .string()
         .email({ message: "Invalid email" })
-        .regex(/^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, { message: "Invalid email" }),
+        .regex(
+            /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            { message: "Invalid email" }
+        ),
     password: z
         .string()
         .min(8, { message: "Password must be at least 8 characters long" })
@@ -31,5 +34,5 @@ export const UsersService = {
             }
             return Promise.reject(error);
         }
-    }
+    },
 };

@@ -1,4 +1,4 @@
-import mongoose, {Document} from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export enum UserRole {
     USER_ROLE,
@@ -19,7 +19,7 @@ export interface IUsers extends Document {
     statut: number;
     registerAt: Date;
     lastConnection: Date;
-};
+}
 
 const UsersSchema = new mongoose.Schema<IUsers>({
     nickname: {
@@ -33,11 +33,11 @@ const UsersSchema = new mongoose.Schema<IUsers>({
         match: [
             /^(?=.{1,255}$)\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             "Email is invalid",
-        ]
+        ],
     },
     password: {
         type: String,
-        required: [true, "Password is required"]
+        required: [true, "Password is required"],
     },
     role: {
         type: Number,
@@ -54,7 +54,8 @@ const UsersSchema = new mongoose.Schema<IUsers>({
     registerAt: {
         type: Date,
         required: true,
-        default: Date.now,},
+        default: Date.now,
+    },
     lastConnection: {
         type: Date,
         required: true,
